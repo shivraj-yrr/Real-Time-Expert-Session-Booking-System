@@ -2,7 +2,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const Expert = require("./models/expert");
-const Booking = require("./models/Booking");
+const Booking = require("./models/booking");
 const categories = ["Fitness", "Finance", "Career", "Health", "Technology"];
 
 const generateSlots = () => {
