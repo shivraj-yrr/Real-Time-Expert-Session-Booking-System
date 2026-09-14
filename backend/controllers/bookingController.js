@@ -1,4 +1,4 @@
-const Booking = require("../models/Booking");
+const Booking = require("../models/booking");
 const Expert = require("../models/expert");
 const mongoose = require("mongoose");
 const { isValidEmail, isValidPhone, isValidName, isValidDate, isValidTimeSlot, isValidNotes } = require("../utils/validate");
