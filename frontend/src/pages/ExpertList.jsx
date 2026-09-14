@@ -6,10 +6,16 @@ const ExpertList = () => {
 
     const [experts, setExperts] = useState([]);
     const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
     const [category, setCategory] = useState('');
     const [sort, setSort] = useState('createdAt');
     const [search, setSearch] = useState('');
     const limit = 6;
+
+  useEffect(() => {
+    setPage(1);
+  }, [category, sort, search]);
+
     useEffect(() => {
         fetchExperts();
     }, [page, category, sort, search]);
@@ -20,6 +26,7 @@ const ExpertList = () => {
                 params: { page, category, sort, search, limit }
             });
             setExperts(response.data.experts);
+            setTotalPages(response.data.totalPages || 1);
         } catch (error) {
             console.error('Error fetching experts:', error);
         }
@@ -34,6 +41,7 @@ const ExpertList = () => {
               <p className="mt-2 text-sm text-slate-600">
                 Browse curated specialists and book your next session.
               </p>
+              <h2>Total pages: {totalPages}</h2>
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <select
@@ -49,7 +57,7 @@ const ExpertList = () => {
               </select>
 
               <select
-                onChange={(e) => setSort(e.target.value.toLowerCase())}
+                onChange={(e) => setSort(e.target.value)}
                 className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200"
               >
                 <option value="createdAt">Newest</option>
@@ -118,6 +126,7 @@ const ExpertList = () => {
             <span className="text-sm text-slate-500">Page {page}</span>
             <button
               onClick={() => setPage(page + 1)}
+              disabled={page >= totalPages}
               className="rounded-full bg-teal-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700"
             >
               Next

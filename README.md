@@ -205,11 +205,11 @@ npm install
 ```
 npm run dev
 ```
-Make sure backend is running on the same port configured in:
+By default, the frontend connects to the backend at `http://localhost:3000`. To use a different backend URL, create `frontend/.env` with:
 ```
-src/services/api.js
-src/services/socket.js
+VITE_API_URL=http://localhost:3000
 ```
+The variable is used by both Axios and Socket.io. Restart the Vite server after changing it.
 
 The UI will be available at the Vite dev server URL (typically `http://localhost:5173`).
 
